@@ -3,7 +3,9 @@ parser txt to json
 
 How to run this project:
 1. Open code source folder
-cd src
+
+```cd src```
 
 2. Run compile and execute
-javac JsonParser.java && java JsonParser
+
+```javac JsonParser.java && java JsonParser```
