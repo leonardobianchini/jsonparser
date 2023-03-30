@@ -15,13 +15,27 @@ class JsonParser {
     return year + "-" + month + "-" + day;
   }
 
+  public static String orderToString(Orders order) {
+    return "{" +
+      "\"user_id\":" + order.idUser + "," +
+      "\"name\":\"" + order.nameUser + "\"," +
+      "\"orders\":[{" +
+      "\"order_id\": " + order.idOrder + "," +
+      "\"date\": \"" + order.dateOrder + "\"," +
+      "\"total\": \"" + order.valueProduct + "\"," +
+      "\"products\": [{" +
+      "\"product_id\": " + order.idProduct + "," +
+      "\"value\": \"" + order.valueProduct + "\"" +
+      "}]}]},\n";
+  }
+
   public static void main(String args[]) throws FileNotFoundException, IOException {
     try (
       BufferedReader buffer = new BufferedReader(new FileReader("../inputs/data_1.txt"))
     ) {
       String line = buffer.readLine();
       ArrayList<Orders> allOrders = new ArrayList<Orders>();
-      BufferedWriter writer = new BufferedWriter(new FileWriter("parsed.json"));
+      BufferedWriter writer = new BufferedWriter(new FileWriter("output.json"));
   
       while (line != null) {
           Orders order = new Orders();
@@ -43,10 +57,13 @@ class JsonParser {
           line = buffer.readLine();
       }
 
+      writer.write("[\n");
       for(Orders order: allOrders) {
-        writer.write(order.nameUser + System.lineSeparator());
+        writer.write(orderToString(order));
       }
+      writer.write("]");
       writer.close();
+
       System.out.println("Finish parser.");
     }
     catch (Exception err) {

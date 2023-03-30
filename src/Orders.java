@@ -5,4 +5,5 @@ public class Orders {
   Integer idProduct;
   Double valueProduct;
   String dateOrder;
+  Double totalOrder;
 }
