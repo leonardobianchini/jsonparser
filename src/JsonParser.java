@@ -5,14 +5,26 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 class JsonParser {
+
+  private static List<Orders> allOrders = new ArrayList<Orders>();
 
   private static String formatDate(String date) {
     String year = date.substring(0,4);
     String month = date.substring(4,6);
     String day = date.substring(6,8);
     return year + "-" + month + "-" + day;
+  }
+
+  private static int getIndexOfOrder(Integer userId) {
+    for(Orders orderObj : allOrders) {
+      if(orderObj.idUser.equals(userId)){
+        return allOrders.indexOf(orderObj);
+      }
+     }
+    return -1; 
   }
 
   public static String orderToString(Orders order) {
@@ -22,7 +34,7 @@ class JsonParser {
       "\"orders\":[{" +
       "\"order_id\": " + order.idOrder + "," +
       "\"date\": \"" + order.dateOrder + "\"," +
-      "\"total\": \"" + order.valueProduct + "\"," +
+      "\"total\": \"" + order.totalOrder + "\"," +
       "\"products\": [{" +
       "\"product_id\": " + order.idProduct + "," +
       "\"value\": \"" + order.valueProduct + "\"" +
@@ -34,7 +46,6 @@ class JsonParser {
       BufferedReader buffer = new BufferedReader(new FileReader("../inputs/data_1.txt"))
     ) {
       String line = buffer.readLine();
-      ArrayList<Orders> allOrders = new ArrayList<Orders>();
       BufferedWriter writer = new BufferedWriter(new FileWriter("output.json"));
   
       while (line != null) {
@@ -49,11 +60,17 @@ class JsonParser {
           String idProd = line.substring(65, 75);
           order.idProduct = Integer.parseInt(idProd);
           String value = line.substring(75, 87);
-          order.valueProduct = Double.parseDouble(value);
+          order.valueProduct = Float.parseFloat(value);
+          order.totalOrder = Float.parseFloat(value);
           String date = line.substring(87, 95);
           order.dateOrder = formatDate(date);
 
-          allOrders.add(order);
+          int indexOrd = getIndexOfOrder(order.idUser);
+          if(indexOrd >= 0){
+            allOrders.get(indexOrd).totalOrder += order.valueProduct;
+          } else {
+            allOrders.add(order);
+          }
           line = buffer.readLine();
       }
 

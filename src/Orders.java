@@ -3,7 +3,7 @@ public class Orders {
   String nameUser;
   Integer idOrder;
   Integer idProduct;
-  Double valueProduct;
+  Float valueProduct;
   String dateOrder;
-  Double totalOrder;
+  Float totalOrder;
 }
