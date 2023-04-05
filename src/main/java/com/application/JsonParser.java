@@ -28,8 +28,7 @@ class JsonParser {
 
   public static void main(String args[]) throws FileNotFoundException, IOException {
     try (
-      BufferedReader buffer = new BufferedReader(new FileReader("./inputs/data_1.txt"))
-    ){
+        BufferedReader buffer = new BufferedReader(new FileReader("./inputs/data_1.txt"))) {
       Writer writer = new FileWriter("parsed.json");
       String line = buffer.readLine();
       OrderHelper currentOrder = new OrderHelper();
@@ -39,16 +38,18 @@ class JsonParser {
 
         int isRegistered = checkRegisteredUser(currentOrder.user_id);
         if (isRegistered >= 0) {
-          userOrders.get(isRegistered).addOrder(currentOrder.order_id, currentOrder.date, currentOrder.product_id, currentOrder.value);
+          userOrders.get(isRegistered).addOrder(currentOrder.order_id, currentOrder.date, currentOrder.product_id,
+              currentOrder.value);
         } else {
-          userOrders.add(new User(currentOrder.user_id, currentOrder.name, currentOrder.order_id, currentOrder.date, currentOrder.product_id, currentOrder.value));
+          userOrders.add(new User(currentOrder.user_id, currentOrder.name, currentOrder.order_id, currentOrder.date,
+              currentOrder.product_id, currentOrder.value));
         }
         line = buffer.readLine();
       }
 
       Gson gson = new GsonBuilder().setPrettyPrinting().create();
       gson.toJson(userOrders, writer);
-      
+
       System.out.println("Finish parser.");
     } catch (Exception err) {
       System.out.println("Error to run project: " + err);

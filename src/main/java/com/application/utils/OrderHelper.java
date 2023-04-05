@@ -16,7 +16,7 @@ public class OrderHelper {
     return year + "-" + month + "-" + day;
   }
 
-  public OrderHelper getAttributes(String line){
+  public OrderHelper getAttributes(String line) {
     String idUser = line.substring(0, 10);
     this.user_id = Integer.parseInt(idUser);
     this.name = line.substring(10, 55);
