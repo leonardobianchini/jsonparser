@@ -1,4 +1,4 @@
-package entities;
+package com.application.entities;
 
 public class Product {
   private Integer product_id;

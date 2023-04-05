@@ -1,4 +1,4 @@
-package entities;
+package com.application.entities;
 
 import java.util.ArrayList;
 
@@ -11,31 +11,6 @@ public class User {
     this.user_id = user_id;
     this.name = name.trim();
     this.orders.add(new Order(order_id, date, product_id, value));
-  }
-
-  private String ordersToString(){
-    String ordersString = "";
-
-    for(int i = 0; i < this.orders.size(); i++){
-      ordersString += 
-        "{\"order_id\": " + this.orders.get(i).getOrderId() +
-        ", \"total\": \"" + this.orders.get(i).getTotal().replace(",", ".") + "\"" +
-        ", \"date\": \"" + this.orders.get(i).getDate() + "\"" +
-        ", \"products\": [ " +
-        this.orders.get(i).productsToString() +
-        "]},";
-    }
-
-    return ordersString.substring(0, ordersString.length() - 1);  
-  }
-
-  public String getUserOrders(){
-    return "{" +
-      "\"user_id\": " + this.user_id + 
-      ", \"name\": \"" + this.name + "\"" +
-      ", \"orders\": [" +
-      ordersToString() +
-      "]},";
   }
 
   private int checkOrderExists(Integer orderId) {
@@ -58,5 +33,9 @@ public class User {
 
   public Integer getUserId(){
     return this.user_id;
+  }
+
+  public String getName(){
+    return this.name;
   }
 }

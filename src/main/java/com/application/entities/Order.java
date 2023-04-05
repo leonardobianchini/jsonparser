@@ -1,4 +1,4 @@
-package entities;
+package com.application.entities;
 
 import java.util.ArrayList;
 
@@ -20,25 +20,12 @@ public class Order {
     this.total += value;
   }
 
-  public String productsToString(){
-    String ordersString = "";
-
-    for(int i = 0; i < this.products.size(); i++){
-      ordersString += 
-        "{\"product_id\": " + this.products.get(i).getProductId() +
-        ", \"value\": \"" + this.products.get(i).getValue() + "\"" +
-        "},";
-    }
-
-    return ordersString.substring(0, ordersString.length() - 1);
-  }
-
   public Integer getOrderId(){
     return this.order_id;
   }
 
-  public String getTotal(){
-    return String.format("%.2f", this.total);
+  public Double getTotal(){
+    return this.total;
   }
 
   public String getDate(){
