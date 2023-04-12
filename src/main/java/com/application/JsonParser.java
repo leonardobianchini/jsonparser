@@ -49,6 +49,7 @@ class JsonParser {
 
       Gson gson = new GsonBuilder().setPrettyPrinting().create();
       gson.toJson(userOrders, writer);
+      writer.close();
 
       System.out.println("Finish parser.");
     } catch (Exception err) {
